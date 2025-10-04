@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { InputNumber, Button, Card } from 'primevue'
 
 const props = defineProps(['exerciseName', 'setNumber', 'targetRepsNumber'])
+const emit = defineEmits(['finishedSet'])
 
 const reps = ref(props.targetRepsNumber)
 </script>

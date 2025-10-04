@@ -1,5 +1,6 @@
 <script setup>
 import Repping from './Repping.vue'
+import Resting from './Resting.vue'
 import { Exercise, Set, Workout, getOrderedSetsInWorkout } from '../models/models'
 
 // initialize some mock data
@@ -19,10 +20,15 @@ function callbackFinishedSet(reps) {
   console.log(reps)
   //TODO keep track of actual performed reps, to save in database
 }
+
+function callbackFinishedResting() {
+  console.log("done resting")
+}
 </script>
 
 <template>
   <Repping :exerciseName="exercises[0].name" setNumber="1" targetRepsNumber="12" @finishedSet="callbackFinishedSet" />
+  <Resting :restTimeInSeconds="10" @finishedResting="callbackFinishedResting" />
 </template>
 
 <style scoped></style>
