@@ -13,10 +13,16 @@ const exercises = [easy_dips, pushUps]
 const workout = new Workout("Ben's workout", exercises)
 
 const sets = getOrderedSetsInWorkout(workout)
+
+function callbackFinishedSet(reps) {
+  console.log("ok")
+  console.log(reps)
+  //TODO keep track of actual performed reps, to save in database
+}
 </script>
 
 <template>
-  <Repping :exerciseName="exercises[0].name" setNumber="1" targetRepsNumber="12" />
+  <Repping :exerciseName="exercises[0].name" setNumber="1" targetRepsNumber="12" @finishedSet="callbackFinishedSet" />
 </template>
 
 <style scoped></style>

@@ -34,7 +34,7 @@ const reps = ref(props.targetRepsNumber)
     </template>
 
     <template #footer>
-      <Button label="Save & continue" class="w-full" />
+      <Button label="Save & continue" class="w-full" @click="$emit('finishedSet', reps)" />
     </template>
   </Card>
 </template>
