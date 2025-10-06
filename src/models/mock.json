@@ -1,0 +1,165 @@
+{
+  "workoutName": "Ben's MTB Workout",
+  "exercises": [
+    {
+      "name": "Easy Dips",
+      "sets": [
+        {
+          "order": 1,
+          "info": "Using the little table",
+          "nbReps": 12
+        },
+        {
+          "order": 2,
+          "info": "Using the little table",
+          "nbReps": 12
+        },
+        {
+          "order": 3,
+          "info": "Using the little table",
+          "nbReps": 12
+        }
+      ]
+    },
+    {
+      "name": "Push ups with high hands",
+      "sets": [
+        {
+          "order": 1,
+          "info": "Using the stair case on the patio",
+          "nbReps": 8
+        },
+        {
+          "order": 2,
+          "info": "Using the stair case on the patio",
+          "nbReps": 8
+        },
+        {
+          "order": 3,
+          "info": "Using the stair case on the patio",
+          "nbReps": 8
+        }
+      ]
+    },
+    {
+      "name": "Easy Push ups",
+      "sets": [
+        {
+          "order": 1,
+          "info": "Standard, but the knees on the floor",
+          "nbReps": 8
+        },
+        {
+          "order": 2,
+          "info": "Standard, but the knees on the floor",
+          "nbReps": 8
+        },
+        {
+          "order": 3,
+          "info": "Standard, but the knees on the floor",
+          "nbReps": 8
+        }
+      ]
+    },
+    {
+      "name": "Bicep curls",
+      "sets": [
+        {
+          "order": 1,
+          "info": "20kg",
+          "nbReps": 11
+        },
+        {
+          "order": 2,
+          "info": "20kg",
+          "nbReps": 11
+        },
+        {
+          "order": 3,
+          "info": "20kg",
+          "nbReps": 11
+        }
+      ]
+    },
+    {
+      "name": "Rows",
+      "sets": [
+        {
+          "order": 1,
+          "info": "60kg (25 25 10)",
+          "nbReps": 12
+        },
+        {
+          "order": 2,
+          "info": "60kg (25 25 10)",
+          "nbReps": 12
+        },
+        {
+          "order": 3,
+          "info": "60kg (25 25 10)",
+          "nbReps": 12
+        }
+      ]
+    },
+    {
+      "name": "Squats",
+      "sets": [
+        {
+          "order": 1,
+          "info": "50kg",
+          "nbReps": 9
+        },
+        {
+          "order": 2,
+          "info": "50kg",
+          "nbReps": 9
+        },
+        {
+          "order": 3,
+          "info": "50kg",
+          "nbReps": 9
+        }
+      ]
+    },
+    {
+      "name": "Deadlifts",
+      "sets": [
+        {
+          "order": 1,
+          "info": "50kg",
+          "nbReps": 9
+        },
+        {
+          "order": 2,
+          "info": "50kg",
+          "nbReps": 9
+        },
+        {
+          "order": 3,
+          "info": "50kg",
+          "nbReps": 9
+        }
+      ]
+    },
+    {
+      "name": "Abs",
+      "sets": [
+        {
+          "order": 1,
+          "info": "Whatever",
+          "nbReps": 35
+        },
+        {
+          "order": 2,
+          "info": "Whatever",
+          "nbReps": 35
+        },
+        {
+          "order": 3,
+          "info": "Whatever",
+          "nbReps": 35
+        }
+      ]
+    }
+  ]
+}

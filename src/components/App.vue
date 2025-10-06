@@ -1,34 +1,84 @@
 <script setup>
+import { computed, ref } from 'vue'
 import Repping from './Repping.vue'
 import Resting from './Resting.vue'
-import { Exercise, Set, Workout, getOrderedSetsInWorkout } from '../models/models'
+import FinishedWorkout from './FinishedWorkout.vue'
+import { RESTING_TIME } from '@/constants'
 
-// initialize some mock data
-const set1 = new Set('Use little table', 12)
-const set2 = new Set('Use little table', 12)
-const set3 = new Set('Use little table', 12)
-const set4 = new Set('Go for it', 5)
-const easy_dips = new Exercise('Easy Dips', [set1, set2, set3])
-const pushUps = new Exercise('PushUps', [set4])
-const exercises = [easy_dips, pushUps]
-const workout = new Workout("Ben's workout", exercises)
+const currentComponent = ref('Repping')
 
+const components = {
+  Repping,
+  Resting,
+  FinishedWorkout,
+}
+
+// working with mock json data for now
+import workout from '@/models/mock' with { type: 'json' }
 const sets = getOrderedSetsInWorkout(workout)
 
+let currentSetIndex = 0
+
+const set = ref(sets[currentSetIndex])
+
+const currentProperties = computed(() => {
+  if (currentComponent.value == 'Resting') {
+    return { restTimeInSeconds: RESTING_TIME }
+  } else if (currentComponent.value == 'Repping') {
+    return {
+      exerciseName: set.value.exerciseName,
+      setNumber: set.value.set.order,
+      targetRepsNumber: set.value.set.nbReps,
+    }
+  }
+})
+
 function callbackFinishedSet(reps) {
-  console.log("ok")
-  console.log(reps)
-  //TODO keep track of actual performed reps, to save in database
+  currentComponent.value = 'Resting'
+  console.log('Actual reps: ' + reps)
 }
 
 function callbackFinishedResting() {
-  console.log("done resting")
+  if (currentSetIndex + 1 in sets) {
+    currentComponent.value = 'Repping'
+    currentSetIndex++
+    set.value = sets[currentSetIndex]
+  } else {
+    currentComponent.value = 'FinishedWorkout'
+  }
+}
+
+function getOrderedSetsInWorkout(workout) {
+  const sets = []
+  for (let exercise of workout.exercises) {
+    for (let set of exercise.sets) {
+      sets.push({
+        exerciseName: exercise.name,
+        set: set,
+      })
+    }
+  }
+  return sets
 }
 </script>
 
 <template>
-  <Repping :exerciseName="exercises[0].name" setNumber="1" targetRepsNumber="12" @finishedSet="callbackFinishedSet" />
-  <Resting :restTimeInSeconds="10" @finishedResting="callbackFinishedResting" />
+  <div class="page-container">
+    <component
+      :is="components[currentComponent]"
+      v-bind="currentProperties"
+      @finishedSet="callbackFinishedSet"
+      @finishedResting="callbackFinishedResting"
+    ></component>
+  </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.page-container {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>

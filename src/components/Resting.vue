@@ -2,18 +2,17 @@
 import { ref } from 'vue'
 import { Card } from 'primevue'
 
-const props = defineProps(["restTimeInSeconds"])
+const props = defineProps(['restTimeInSeconds'])
 const emit = defineEmits(['finishedResting'])
 
 let restTimeInSeconds = ref(props.restTimeInSeconds)
 
-setInterval(function() {
-    restTimeInSeconds.value--
-    if(restTimeInSeconds.value == 0) {
-        emit('finishedResting')
-    }
-}, 1000);
-
+setInterval(function () {
+  restTimeInSeconds.value--
+  if (restTimeInSeconds.value == 0) {
+    emit('finishedResting')
+  }
+}, 1000)
 </script>
 
 <template>
@@ -24,9 +23,7 @@ setInterval(function() {
 
     <template #content>
       <p>{{ restTimeInSeconds }} seconds left</p>
-
     </template>
-
   </Card>
 </template>
 
