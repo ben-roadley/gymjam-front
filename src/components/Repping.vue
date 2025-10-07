@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { InputNumber, Button, Card } from 'primevue'
 
-const props = defineProps(['exerciseName', 'setNumber', 'targetRepsNumber'])
+const props = defineProps(['exerciseName', 'setNumber', 'targetRepsNumber', 'info'])
 const emit = defineEmits(['finishedSet'])
 
 const reps = ref(props.targetRepsNumber)
@@ -10,9 +10,9 @@ const reps = ref(props.targetRepsNumber)
 
 <template>
   <Card style="width: 25rem; overflow: hidden">
-    <template #title>{{ exerciseName }}</template>
+    <template #title>{{ exerciseName + ' - Set ' + setNumber }}</template>
 
-    <template #subtitle>{{ 'Set ' + setNumber + ' - ' + targetRepsNumber + ' Reps' }}</template>
+    <template #subtitle>{{ 'Target: ' + targetRepsNumber + ' Reps, ' + info }}</template>
 
     <template #content>
       <p>How many did you do?</p>

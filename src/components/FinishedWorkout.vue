@@ -4,7 +4,7 @@ import { Card } from 'primevue'
 
 <template>
   <Card style="width: 25rem; overflow: hidden">
-    <template #title>Finshed Workout!</template>
+    <template #title>Finished Workout!</template>
 
     <template #subtitle>Nice, time to get a shower</template>
 

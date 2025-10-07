@@ -1,37 +1,44 @@
 <script setup>
 import { computed, ref } from 'vue'
+import Loading from './Loading.vue'
 import Repping from './Repping.vue'
 import Resting from './Resting.vue'
 import FinishedWorkout from './FinishedWorkout.vue'
 import { RESTING_TIME } from '@/constants'
 
-const currentComponent = ref('Repping')
-
 const components = {
+  Loading,
   Repping,
   Resting,
   FinishedWorkout,
 }
+const currentComponent = ref('Loading')
 
-// working with mock json data for now
-import workout from '@/models/mock' with { type: 'json' }
-const sets = getOrderedSetsInWorkout(workout)
+const workout = ref()
+let sets = null
+const currentSet = ref(null)
 
-let currentSetIndex = 0
-
-const set = ref(sets[currentSetIndex])
-
-const currentProperties = computed(() => {
+const currentProps = computed(() => {
+  if (currentComponent.value == 'Loading') {
+    return { workout: workout }
+  }
   if (currentComponent.value == 'Resting') {
     return { restTimeInSeconds: RESTING_TIME }
   } else if (currentComponent.value == 'Repping') {
     return {
-      exerciseName: set.value.exerciseName,
-      setNumber: set.value.set.order,
-      targetRepsNumber: set.value.set.nbReps,
+      exerciseName: currentSet.value.exerciseName,
+      setNumber: currentSet.value.order,
+      targetRepsNumber: currentSet.value.targetRepsNumber,
+      info: currentSet.value.info,
     }
   }
 })
+
+function callbackFinishedLoading() {
+  sets = getOrderedSetsInWorkout()
+  currentSet.value = sets.next().value
+  currentComponent.value = 'Repping'
+}
 
 function callbackFinishedSet(reps) {
   currentComponent.value = 'Resting'
@@ -39,26 +46,28 @@ function callbackFinishedSet(reps) {
 }
 
 function callbackFinishedResting() {
-  if (currentSetIndex + 1 in sets) {
+  const nextSet = sets.next().value
+  if (nextSet) {
     currentComponent.value = 'Repping'
-    currentSetIndex++
-    set.value = sets[currentSetIndex]
+    currentSet.value = nextSet
   } else {
     currentComponent.value = 'FinishedWorkout'
   }
 }
 
-function getOrderedSetsInWorkout(workout) {
+function getOrderedSetsInWorkout() {
   const sets = []
-  for (let exercise of workout.exercises) {
-    for (let set of exercise.sets) {
+  for (let exercise of workout.value.exercises) {
+    for (let set of exercise.sets_of_reps) {
       sets.push({
         exerciseName: exercise.name,
-        set: set,
+        order: set.order,
+        targetRepsNumber: set.nb_reps,
+        info: set.info,
       })
     }
   }
-  return sets
+  return sets[Symbol.iterator]()
 }
 </script>
 
@@ -66,7 +75,8 @@ function getOrderedSetsInWorkout(workout) {
   <div class="page-container">
     <component
       :is="components[currentComponent]"
-      v-bind="currentProperties"
+      v-bind="currentProps"
+      @finishedLoading="callbackFinishedLoading"
       @finishedSet="callbackFinishedSet"
       @finishedResting="callbackFinishedResting"
     ></component>
