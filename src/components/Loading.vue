@@ -1,12 +1,13 @@
 <script setup>
 import axios from 'axios'
 import { ref, onMounted } from 'vue'
-import { Button, Card } from 'primevue'
+import { Button, Card, Message } from 'primevue'
 
 const props = defineProps(['workout'])
 defineEmits(['finishedLoading'])
 
 const isLoading = ref(true)
+const errorMessage = ref("")
 
 onMounted(async () => {
   axios
@@ -17,6 +18,7 @@ onMounted(async () => {
     })
     .catch((error) => {
       console.error('Error fetching data:', error)
+      errorMessage.value = 'Error fetching data: ' + error
     })
 })
 </script>
@@ -31,8 +33,9 @@ onMounted(async () => {
       <p>Another day, another workout lol.</p>
     </template>
 
-    <template #footer v-if="!isLoading">
-      <Button label="Start repping!" class="w-full" @click="$emit('finishedLoading')" />
+    <template #footer>
+      <Button v-if="!isLoading" label="Start repping!" class="w-full" @click="$emit('finishedLoading')" />
+      <Message v-if="errorMessage" severity="error">{{ errorMessage }}</Message>
     </template>
   </Card>
 </template>
