@@ -4,7 +4,6 @@ import Loading from './Loading.vue'
 import Repping from './Repping.vue'
 import Resting from './Resting.vue'
 import FinishedWorkout from './FinishedWorkout.vue'
-import { RESTING_TIME } from '@/constants'
 
 const components = {
   Loading,
@@ -23,7 +22,7 @@ const currentProps = computed(() => {
     return { workout: workout }
   }
   if (currentComponent.value == 'Resting') {
-    return { restTimeInSeconds: RESTING_TIME }
+    return { restTimeInSeconds: workout.value.rest_time }
   } else if (currentComponent.value == 'Repping') {
     return {
       exerciseName: currentSet.value.exerciseName,
